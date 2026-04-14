@@ -23,6 +23,6 @@ public partial class EquipmentTelemetry
     [ValidateNever, BindNever]
     public virtual ProductBatch? Batch { get; set; }
 
-    [ValidateNever, BindNever]  
+    [ValidateNever, BindNever]
     public virtual Equipment Equipment { get; set; } = null!;
 }

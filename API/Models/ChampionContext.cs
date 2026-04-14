@@ -445,17 +445,17 @@ public partial class ChampionContext : DbContext
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone");
 
-            entity.HasOne(d => d.ApprovedByNavigation).WithMany(p => p.RecipeApprovedByNavigations)
-                .HasForeignKey(d => d.ApprovedBy)
+            entity.HasOne(d => d.ApprovedBy).WithMany(p => p.RecipeApprovedBies)
+                .HasForeignKey(d => d.ApprovedById)
                 .HasConstraintName("Recipes_ApprovedBy_fkey");
 
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.RecipeCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.RecipeCreatedBies)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Recipes_CreatedBy_fkey");
 
-            entity.HasOne(d => d.Product).WithOne(p => p.Recipe)
-                .HasForeignKey<Recipe>(d => d.ProductId)
+            entity.HasOne(d => d.Product).WithMany(p => p.Recipes)
+                .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Recipes_ProductId_fkey");
 
@@ -528,8 +528,8 @@ public partial class ChampionContext : DbContext
                 .IsUnique()
                 .HasFilter("(\"StatusId\" = 1)");
 
-            entity.HasOne(d => d.Recipe).WithOne(p => p.TechCard)
-                .HasForeignKey<TechCard>(d => d.RecipeId)
+            entity.HasOne(d => d.Recipe).WithMany(p => p.TechCards)
+                .HasForeignKey(d => d.RecipeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("TechCards_RecipeId_fkey");
 

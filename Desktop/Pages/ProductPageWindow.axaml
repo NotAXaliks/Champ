@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Desktop.Pages.ProductPageWindow"
+        Title="Карточка продукта">
+        <StackPanel Spacing="20">
+                <TextBlock HorizontalAlignment="Center" FontSize="25">Карточка продукта</TextBlock>
+                
+                <StackPanel Spacing="5">
+                        <TextBlock Name="Name" />
+                        <TextBlock Name="Code" />
+                        <TextBlock Name="Form" />
+                        <TextBlock Name="Type" />
+                        <TextBlock Name="Status" />
+                </StackPanel>
+
+                <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" FontSize="20">Рецептуры</TextBlock>
+
+                        <DataGrid Name="RecipesGrid" IsReadOnly="True" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Версия" Binding="{Binding Version}" />        
+                                        <DataGridTextColumn Header="Статус" Binding="{Binding Status.Name}" />        
+                                        <DataGridTextColumn Header="Дата создания" Binding="{Binding CreatedAt}" />        
+                                        <DataGridTextColumn Header="Дата принятия" Binding="{Binding ApprovedAt}" />        
+                                        <DataGridTextColumn Header="Создал" Binding="{Binding CreatedBy.Name}" />        
+                                        <DataGridTextColumn Header="Принял" Binding="{Binding ApprovedBy.Name}" />        
+                                        <DataGridTextColumn Header="Коммент" Binding="{Binding Comment}" />        
+                                </DataGrid.Columns>
+                        </DataGrid>
+                </StackPanel>
+        </StackPanel>
+</Window>

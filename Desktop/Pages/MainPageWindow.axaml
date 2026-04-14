@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Desktop.Pages.MainPageWindow"
+        Title="Desktop">
+        <StackPanel>
+                <Grid ColumnDefinitions="Auto, Auto, *, Auto" Height="70" ColumnSpacing="10">
+                        <Image Grid.Column="0" Source="/Assets/Logo.png" Height="70" Width="150"/>
+
+                        <TextBlock Grid.Column="1" Name="PageName" />
+
+                        <TextBox Grid.Column="2" />
+
+                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                <Image Source="/Assets/UserIcon.png" MaxHeight="40" MaxWidth="40" />
+                                <StackPanel>
+                                        <TextBlock Name="UserName" Text="Фамилия Имя Отчество" />        
+                                        <TextBlock Name="UserRole" Text="Администратор" />        
+                                        <TextBlock Name="UserDepartment" Text="Отдел 1" />        
+                                </StackPanel>
+                        </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal">
+                        <StackPanel>
+                                <Button Click="OnMainClick">Главная</Button>
+                                <Button Click="OnProductClick">Продукция</Button>
+                                <Button>Главная</Button>
+                                <Button>Главная</Button>
+                                <Button>Главная</Button>
+                                <Button>Главная</Button>
+                                <Button>Главная</Button>
+                                <Button>Главная</Button>
+                        </StackPanel>
+
+                        <UserControl Name="CurrentPage" />
+                </StackPanel>
+        </StackPanel>
+</Window>

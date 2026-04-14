@@ -77,7 +77,6 @@ namespace API.Controllers
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             try {
-
                 _context.Users.Add(user);
 
                 await _context.SaveChangesAsync();

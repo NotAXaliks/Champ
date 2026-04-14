@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Desktop.Pages.MainPage"
+        d:DesignHeight="450" d:DesignWidth="800">
+    <Border HorizontalAlignment="Center">
+        <UniformGrid Rows="3" Columns="3">
+            <Button Click="OrdersPage">
+                <StackPanel>
+                    <TextBlock>Активные продукты</TextBlock>
+                    <TextBlock Name="ActiveProducts">123</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button>
+                <StackPanel>
+                    <TextBlock>Действующие рецептуры</TextBlock>
+                    <TextBlock Name="ActiveRecipes">123</TextBlock>
+                </StackPanel>    
+            </Button>
+
+            <Button>
+                <StackPanel>
+                    <TextBlock>Действующие техкарты</TextBlock>
+                    <TextBlock Name="ActiveCards">123</TextBlock>
+                </StackPanel>    
+            </Button>
+
+            <Button>
+                <StackPanel>
+                    <TextBlock>Заказы в работе</TextBlock>
+                    <TextBlock Name="OrdersWork">123</TextBlock>
+                </StackPanel>    
+            </Button>
+
+            <Button>
+                <StackPanel>
+                    <TextBlock>Партии в производстве</TextBlock>
+                    <TextBlock Name="BatchesWork">123</TextBlock>
+                </StackPanel>    
+            </Button>
+
+            <Button>
+                <StackPanel>
+                    <TextBlock>Партии с отклонениями</TextBlock>
+                    <TextBlock Name="BatchesDeviations">123</TextBlock>
+                </StackPanel>    
+            </Button>
+
+            <StackPanel>
+                <TextBlock>Лента Событий</TextBlock>    
+
+                <StackPanel>
+                     <TextBlock>* Запуск партии</TextBlock>
+                     <TextBlock>* Начало шага экструзии</TextBlock>
+                     <TextBlock>* Завершение партии</TextBlock>
+                     <TextBlock>* Критическое отклонение</TextBlock>
+                     <TextBlock>* Лаб. блокировка партии</TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </UniformGrid>
+    </Border>
+</UserControl> 

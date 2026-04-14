@@ -35,7 +35,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginParams p)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Login == p.Login);
+            var user = await _context.Users.Include(u => u.Role).Include(u => u.Department).FirstOrDefaultAsync(u => u.Login == p.Login);
             if (user == null) return NotFound(new ApiResponse(null, "Пользователь не найден"));
 
             var hashedPass = Convert.ToHexString(MD5.HashData(Encoding.UTF8.GetBytes(p.Password))).ToLower();

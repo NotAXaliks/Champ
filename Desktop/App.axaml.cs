@@ -25,10 +25,13 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private async void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         e.Handled = true;
 
-        MessageBoxManager.GetMessageBoxStandard("Ошибка", "Произошла ошибка");
+        var box = MessageBoxManager
+            .GetMessageBoxStandard("Ошибка", "Произошла ошибка!");
+
+        await box.ShowAsync();
     }
 }

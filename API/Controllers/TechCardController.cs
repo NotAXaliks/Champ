@@ -12,7 +12,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class TechCardController : ControllerBase
     {
         private readonly ChampionContext _context;
@@ -107,6 +107,53 @@ namespace API.Controllers
             } catch {
                 return Conflict(new ApiResponse(null, "Ошибка"));
             }
+        }
+
+        [HttpPatch("steps/{id:int}/order/{order:int}")]
+        public async Task<IActionResult> EditStepOrder(int id, int order)
+        {
+            var step = await _context.TechSteps.FindAsync(id);
+            if (step == null) return NotFound(new ApiResponse(null, "Не найден шаг"));
+
+            try {
+                step.Order = order;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new ApiResponse(step));
+            } catch {
+                return BadRequest(new ApiResponse(null, "Ошибка"));
+            }
+        }
+
+        [HttpPost("{id:int}/approve")]
+        public async Task<IActionResult> ApproveCard(int id)
+        {
+            var card = await _context.TechCards.FindAsync(id);
+            if (card == null) return NotFound(new ApiResponse(null, "Не найдено."));
+
+            try {
+                card.StatusId = 6;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new ApiResponse(card));
+            } catch {
+                return BadRequest(new ApiResponse(null, "Ошибка"));
+            }
+        }
+
+        [HttpGet("batch/{id:int}")]
+        public async Task<IActionResult> GetBatch(int id)
+        {
+            var batch = await _context.ProductBatches
+                .Include(p => p.BatchMaterials)
+                .Include(p => p.TechCard)
+                .ThenInclude(p => p.TechSteps)
+                .ThenInclude(p => p.TechStepParams)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            return Ok(new ApiResponse(batch));
         }
     }
 }

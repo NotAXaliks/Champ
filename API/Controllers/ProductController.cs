@@ -27,9 +27,21 @@ namespace API.Controllers
         public async Task<IActionResult> GetProducts()
         {
             try {
-                var product = await _context.Products.ToListAsync();
+                var products = await _context.Products
+                    .Include(p => p.Type)
+                    .Include(p => p.Form)
+                    .Include(p => p.Status)
+                    .AsNoTracking()
+                    .ToListAsync();
+                
+                var pWithTechCards = products.Select(p =>
+                new {
+                    Product = p,
+                    TechCard = _context.TechCards.FirstOrDefault(t => t.StatusId == 1 && t.Recipe.ProductId == p.Id),
+                    Recipe = _context.Recipes.FirstOrDefault(t => t.StatusId == 1 && t.ProductId == p.Id)
+                });
 
-                return Ok(new ApiResponse(product));
+                return Ok(new ApiResponse(pWithTechCards));
             } catch {
                 return NotFound(new ApiResponse(null, "Ошибка"));
             }
@@ -40,12 +52,21 @@ namespace API.Controllers
         public async Task<IActionResult> GetProduct(int id)
         {
             try {
-                var founded = await _context.Products.FindAsync(id);
+                var founded = await _context.Products
+                    .Include(p => p.Status)
+                    .Include(p => p.Form)
+                    .Include(p => p.Type)
+                    .Include(p => p.Recipes).ThenInclude(r => r.TechCards)
+                    .Include(p => p.Recipes).ThenInclude(r => r.Status)
+                    .Include(p => p.Recipes).ThenInclude(r => r.ApprovedBy)
+                    .Include(p => p.Recipes).ThenInclude(r => r.CreatedBy)
+                    .FirstOrDefaultAsync(p => p.Id == id);
 
                 if (founded == null) return NotFound(new ApiResponse(null, "Не найдено"));
 
                 return Ok(new ApiResponse(founded));
-            } catch {
+            } catch (Exception e) {
+                Console.WriteLine(e);
                 return NotFound(new ApiResponse(null, "Ошибка"));
             }
         }

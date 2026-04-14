@@ -42,10 +42,10 @@ public partial class User
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
     [ValidateNever, BindNever]
-    public virtual ICollection<Recipe> RecipeApprovedByNavigations { get; set; } = new List<Recipe>();
+    public virtual ICollection<Recipe> RecipeApprovedBies { get; set; } = new List<Recipe>();
 
     [ValidateNever, BindNever]
-    public virtual ICollection<Recipe> RecipeCreatedByNavigations { get; set; } = new List<Recipe>();
+    public virtual ICollection<Recipe> RecipeCreatedBies { get; set; } = new List<Recipe>();
 
     [ValidateNever, BindNever]
     public virtual Role Role { get; set; } = null!;

@@ -27,7 +27,7 @@ public partial class Product
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
     [ValidateNever, BindNever]
-    public virtual Recipe? Recipe { get; set; }
+    public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
 
     [ValidateNever, BindNever]
     public virtual Status Status { get; set; } = null!;

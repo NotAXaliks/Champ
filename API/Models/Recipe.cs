@@ -18,19 +18,19 @@ public partial class Recipe
 
     public DateTime? ApprovedAt { get; set; }
 
-    public int? ApprovedBy { get; set; }
+    public int? ApprovedById { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public int CreatedById { get; set; }
 
     public string Comment { get; set; } = null!;
 
     [ValidateNever, BindNever]
-    public virtual User? ApprovedByNavigation { get; set; }
+    public virtual User? ApprovedBy { get; set; }
 
     [ValidateNever, BindNever]
-    public virtual User CreatedByNavigation { get; set; } = null!;
+    public virtual User CreatedBy { get; set; } = null!;
 
     [ValidateNever, BindNever]
     public virtual Product Product { get; set; } = null!;
@@ -45,5 +45,5 @@ public partial class Recipe
     public virtual Status Status { get; set; } = null!;
 
     [ValidateNever, BindNever]
-    public virtual TechCard? TechCard { get; set; }
+    public virtual ICollection<TechCard> TechCards { get; set; } = new List<TechCard>();
 }

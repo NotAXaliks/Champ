@@ -87,17 +87,15 @@ create table "RecipeComponents" (
     "MaterialId" int not null references "Materials"("Id")
 );
 
-create or replace function recipecomponents() returns trigger as $$
-declare total numeric;
+create or replace function NAME() returns trigger as $$
+declare VAR_NAME VAR_TYPE;
 begin
-    if new."StatusId" = 1 and old."StatusId" <> 1 then
-        select sum("Percentage") into total
-        from "RecipeComponents"
-        where "RecipeId" = new."Id";
+    select coalesce(sum("Percentage"), 0) into VAR_NAME
+    from "RecipeComponents"
+    where "RecipeId" = new."Id";
 
-        if total <> 100 then
-            raise exception 'Сумма компонентов должна быть 100%%';
-        end if;
+    if CONDITION then
+        raise exception 'Error';
     end if;
 
     return new;
@@ -105,10 +103,8 @@ end;
 $$ language plpgsql;
 
 create trigger trg_recipecomponents
-before update of "StatusId"
-on "Recipes"
-for each row
-execute function recipecomponents();
+before insert on "Recipes"
+for each row execute function NAME();
 
 create table "TechCards" (
     "Id" serial primary key,
